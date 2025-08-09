@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 # Load dataset and check first 5 rows
@@ -25,6 +26,20 @@ plt.scatter(X['Annual Income (k$)'], X['Spending Score (1-100)'], alpha=0.6)
 plt.xlabel('Annual Income (k$)')
 plt.ylabel('Spending Score (1-100)')
 plt.title('Customers Income vs Spending Score')
+plt.show()
+
+inertia = []
+K = range(1, 11)
+
+for k in K:
+    kmeans = KMeans(n_clusters=k, random_state=1)
+    kmeans.fit(X_scaled)
+    inertia.append(kmeans.inertia_)     # Sum of squared distances to cluster centers
+
+plt.plot(K, inertia, 'bo-')
+plt.xlabel('Number of clusters k')
+plt.ylabel('Inertia')
+plt.title('Elbow Method For Optimal k')
 plt.show()
 
 
