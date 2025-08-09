@@ -42,4 +42,24 @@ plt.ylabel('Inertia')
 plt.title('Elbow Method For Optimal k')
 plt.show()
 
+kmeans = KMeans(n_clusters=5, random_state=1)
+clusters = kmeans.fit_predict(X_scaled)
+
+# Add cluster labels back to original data for analysis
+mall_data['Cluster'] = clusters
+
+plt.figure(figsize=(8,6))
+
+colors = ['red', 'blue', 'green', 'purple', 'orange']
+
+for i in range(5):
+    cluster_points = mall_data[mall_data['Cluster'] == i]
+    plt.scatter(cluster_points['Annual Income (k$)'], cluster_points['Spending Score (1-100)'],s=50, color=colors[i], label=f'Cluster {i}')
+
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.title('Customer Segments by K-Means Clustering')
+plt.legend()
+plt.show()
+
 
