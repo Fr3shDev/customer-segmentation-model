@@ -75,4 +75,8 @@ plt.ylabel('Spending Score (1-100)')
 plt.title('DBSCAN Clustering')
 plt.show()
 
+# Group by cluster and calculate mean income and spending
+cluster_summary = mall_data.groupby('Cluster')[['Annual Income (k$)', 'Spending Score (1-100)']].mean()
+print(cluster_summary)
+
 
