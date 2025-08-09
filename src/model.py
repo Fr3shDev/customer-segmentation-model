@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+from sklearn.cluster import DBSCAN
 import matplotlib.pyplot as plt
 
 # Load dataset and check first 5 rows
@@ -60,6 +61,18 @@ plt.xlabel('Annual Income (k$)')
 plt.ylabel('Spending Score (1-100)')
 plt.title('Customer Segments by K-Means Clustering')
 plt.legend()
+plt.show()
+
+dbscan = DBSCAN(eps=0.5, min_samples=5)
+dbscan_labels = dbscan.fit_predict(X_scaled)
+
+mall_data['DBSCAN_Cluster'] = dbscan_labels
+
+#Visualize DBSCAN results
+plt.scatter(mall_data['Annual Income (k$)'], mall_data['Spending Score (1-100)'], c=mall_data['DBSCAN_Cluster'], cmap='viridis', s=50)
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.title('DBSCAN Clustering')
 plt.show()
 
 
